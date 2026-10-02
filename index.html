@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Untitled</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="/style.css">
+  </head>
+
+  <body>
+    <!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plateforme de Langue Française - Prof. Daman (منصة اللغة الفرنسية - الأستاذ ضامن)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --secondary: #6366f1;
+            --bg-gradient: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-light: #4b5563;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f3f4f6;
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+            direction: ltr;
+            text-align: left;
+        }
+
+        /* شاشة تسجيل الدخول */
+        #login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-gradient);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .login-box {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            max-width: 440px;
+            width: 90%;
+        }
+
+        .login-box h2 {
+            color: #1e1b4b;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-box p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #d1d5db;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            text-align: left;
+            margin-bottom: 1rem;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, #4f46e5, #6366f1);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: opacity 0.2s;
+        }
+
+        .login-btn:hover {
+            opacity: 0.9;
+        }
+
+        .error-msg {
+            color: #ef4444;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        #app-content {
+            display: none;
+        }
+
+        header {
+            background: var(--bg-gradient);
+            color: white;
+            text-align: center;
+            padding: 2.5rem 1rem 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+        }
+
+        header p {
+            margin-top: 5px;
+            color: #c7d2fe;
+            font-size: 0.95rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        /* لوحة تحكم الأدمن */
+        #admin-panel {
+            background: #e0e7ff;
+            border: 2px dashed var(--primary);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            display: none;
+        }
+
+        #admin-panel h3 {
+            color: #3730a3;
+            margin-top: 0;
+        }
+
+        .admin-section {
+            background: white;
+            padding: 1.2rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid #c7d2fe;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        #admin-panel input, #admin-panel select, #admin-panel textarea {
+            width: 100%;
+            padding: 0.7rem;
+            margin-bottom: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid #d1d5db;
+            font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
+            background: white;
+            outline: none;
+        }
+
+        .student-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f9fafb;
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            margin-top: 0.4rem;
+            border: 1px solid #e5e7eb;
+            font-size: 0.9rem;
+        }
+
+        .delete-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.3rem 0.7rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Poppins';
+            font-size: 0.8rem;
+        }
+
+        /* الأقسام الرئيسية للسنة الدراسية */
+        .year-section-title {
+            color: #1e1b4b;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 0.4rem;
+            margin-top: 2.5rem;
+            font-size: 1.5rem;
+        }
+
+        .category-box {
+            background: white;
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-top: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            border: 1px solid #e5e7eb;
+        }
+
+        .category-title {
+            color: #4f46e5;
+            font-size: 1.15rem;
+            margin-top: 0;
+            border-bottom: 1px solid #f3f4f6;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* قائمة اختيار المحتوى (Dropdown System لتجنب الازدحام) */
+        .select-content-dropdown {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            background: #f8fafc;
+            color: #1f2937;
+            outline: none;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        .content-display-area {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .action-btn {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 0.8rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        video {
+            width: 100%;
+            max-height: 350px;
+            border-radius: 8px;
+            margin-top: 0.8rem;
+            background: #000;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #1e1b4b;
+            color: #9ca3af;
+            margin-top: 3rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- شاشة تسجيل الدخول -->
+    <div id="login-screen">
+        <div class="login-box">
+            <h2>Plateforme de Français <br><span style="font-size: 1rem; color: #6366f1;">(منصة اللغة الفرنسية)</span></h2>
+            <p>Professeur Daman (الأستاذ ضامن) <br> Entrez vos identifiants (أدخل معلومات الدخول الخاصة بك):</p>
+            <input type="text" id="user-email" placeholder="Nom d'utilisateur (اسم المستخدم)...">
+            <input type="password" id="user-pass" placeholder="Mot de passe (كلمة السر)...">
+            <div id="login-error" class="error-msg">Identifiants incorrects ! (معلومات الدخول غير صحيحة!)</div>
+            <button class="login-btn" onclick="login()">Se connecter (تسجيل الدخول)</button>
+        </div>
+    </div>
+
+    <!-- المحتوى الرئيسي للمنصة -->
+    <div id="app-content">
+        <header>
+            <h1>Plateforme de Langue Française <span style="font-size: 1.3rem; color: #c7d2fe;">(منصة اللغة الفرنسية)</span></h1>
+            <p>Professeur (الأستاذ): <strong>Daman (ضامن)</strong> | <span id="user-role-badge" style="color: #fbbf24;"></span></p>
+        </header>
+
+        <div class="container">
+            <!-- لوحة تحكم الأدمن للأستاذ ضامن -->
+            <div id="admin-panel">
+                <h3>🛠️ Panneau d'administration (لوحة تحكم الأدمن والتحكم بالمنصة)</h3>
+                
+                <!-- إعدادات حساب الأستاذ ضامن الشخصية -->
+                <div class="admin-section" style="background: #fef9c3; border-color: #fde047;">
+                    <h4 style="color: #854d0e; margin-top: 0;">⚙️ Paramètres du compte (إعدادات حساب الأستاذ - تعديل اسم المستخدم وكلمة السر):</h4>
+                    <input type="text" id="admin-new-user" placeholder="Nouvel identifiant admin (اسم المستخدم الجديد للأستاذ)...">
+                    <input type="password" id="admin-new-pass" placeholder="Nouveau mot de passe admin (كلمة السر الجديدة)...">
+                    <button class="login-btn" style="background: #eab308; color: #713f12;" onclick="updateAdminCredentials()">Sauvegarder les modifications (حفظ التعديلات)</button>
+                </div>
+
+                <!-- إضافة تلميذ -->
+                <div class="admin-section">
+                    <h4 style="color: #3730a3; margin-top: 0;">1. Gestion des élèves (إدارة التلاميذ - تبدأ بـ 1s_ أو 2s_ أو 3s_):</h4>
+                    <input type="text" id="new-student-user" placeholder="Ex: 1s_karim, 2s_sarah, 3s_amine (اسم التلميذ)...">
+                    <input type="password" id="new-student-pass" placeholder="Mot de passe (كلمة سر التلميذ)...">
+                    <button class="login-btn" style="background: #4f46e5;" onclick="addNewStudent()">Ajouter l'élève (إضافة تلميذ جديد)</button>
+                    <div style="margin-top: 10px; max-height: 130px; overflow-y: auto;" id="students-list-container"><strong>Élèves inscrits (التلاميذ المسجلون):</strong></div>
+                </div>
+
+                <!-- نشر محتوى -->
+                <div class="admin-section">
+                    <h4 style="color: #3730a3; margin-top: 0;">2. Publier un contenu (نشر محتوى جديد - دروس، تمارين، أو تعبير كتابي):</h4>
+                    <label style="font-size: 0.85rem; color: #4b5563;">Niveau scolaire (المستوى الدراسي):</label>
+                    <select id="target-level">
+                        <option value="1st">1ère Année Secondaire (السنة الأولى ثانوي - 1s)</option>
+                        <option value="2nd">2ème Année Secondaire (السنة الثانية ثانوي - 2s)</option>
+                        <option value="3rd">3ème Année Secondaire (السنة الثالثة ثانوي - 3s)</option>
+                    </select>
+
+                    <label style="font-size: 0.85rem; color: #4b5563;">Catégorie (القسم):</label>
+                    <select id="target-category">
+                        <option value="lessons">📚 Cours (دروس)</option>
+                        <option value="exercises">📝 Exercices (تمارين)</option>
+                        <option value="writing">✍️ Expression Écrite / Production (إنشاء وتعبير كتابي)</option>
+                    </select>
+
+                    <input type="text" id="content-title" placeholder="Titre du contenu (عنوان الدرس أو التمرين)...">
+                    <textarea id="content-text" rows="3" placeholder="Contenu textuel ou explications (الشرح أو النص هنا)..."></textarea>
+                    
+                    <label style="font-size: 0.85rem; color: #4f46e5; display: block; margin-top: 5px;">Fichier (PDF, Image) ou Vidéo (MP4) (ملف مرفق أو فيديو):</label>
+                    <input type="file" id="content-file">
+                    
+                    <button class="login-btn" onclick="publishContent()" style="margin-top: 10px;">Publier et Sauvegarder (نشر وحفظ المحتوى)</button>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <h2 style="color: #1f2937; margin: 0;">Contenus Pédagogiques <span style="font-size: 1.1rem; color: #6b7280;">(المحتويات البيداغوجية والتعليمية)</span></h2>
+                <button onclick="logout()" style="background: #ef4444; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-family: 'Poppins'; font-size: 0.9rem;">Déconnexion (تسجيل الخروج)</button>
+            </div>
+
+            <!-- أقسام السنة الأولى -->
+            <div id="section-1st-wrapper">
+                <h3 class="year-section-title">📘 1ère Année Secondaire <span style="font-size: 1.1rem; color: #4f46e5;">(السنة الأولى ثانوي)</span></h3>
+                <div class="category-box">
+                    <h4 class="category-title">📚 Cours <span style="font-size: 0.9rem; color: #6b7280; font-weight: normal;">(قسم الدروس)</span></h4>
+                    <select class="select-content-dropdown" id="dropdown-1st-lessons" onchange="displaySelectedContent('1st', 'lessons', this.value)">
+                        <option value="">-- Sélectionnez un cours (اختر درساً للقراءة) --</option>
+                    </select>
+                    <div class="content-display-area" id="display-1st-lessons"></div>
+                </div>
+                <div class="category-box">
+                    <h4 class="category-title">📝 Exercices <span style="font-size: 0.9rem; color: #6b7280; font-weight: normal;">(قسم التمارين)</span></h4>
+                    <select class="select-content-dropdown" id="dropdown-1st-exercises" onchange="displaySelectedContent('1st', 'exercises', this.value)">
+                        <option value="">-- Sélectionnez un exercice (اختر تمريناً للحل) --</option>
+                    </select>
+                    <div class="content-display-area" id="display-1st-exercises"></div>
+                </div>
+                <div class="category-box">
+                    <h4 class="category-title">✍️ Expression Écrite <span style="font-size: 0.9rem; color: #6b7280; font-weight: normal;">(قسم الإنشاء والتعبير الكتابي)</span></h4>
+                    <select class="select-content-dropdown" id="dropdown-1st-writing" onchange="displaySelectedContent('1st', 'writing', this.value)">
+                        <option value="">-- Sélectionnez une production écrite (اختر موضوع تعبير) --</option>
+                    </select>
+                    <div class="content-display-area" id="display-1st-writing"></div>
+                </div>
+            </div>
+
+            <!-- أقسام السنة الثانية -->
+            <div id="section-2nd-wrapper">
+                <h3 class="year-section-title">📙 2ème Année Secondaire <span style="font-size: 1.1rem; color: #d97706;">(السنة الثانية ثانوي)</span></h3>
+                <div class="category-box">
+                    <h4 class="category-title">📚 Cours <span style="font-size: 0.9rem; color: #6b7280; font-weight: normal;">(قسم الدروس)</span></h4>
+                    <select class="select-content-dropdown" id="dropdown-2nd-lessons" onchange="displaySelectedContent('2nd', 'lessons', this.value)">
+                        <option value="">-- Sélectionnez un cours (اختر درساً للقراءة) --</option>
+                    </select>
+                    <div class="content-display-area" id="display-2nd-lessons"></div>
+                </div>
+                <div class="category-box">
+                    <h4 class="category-title">📝 Exercices <span style="font-size: 0.9rem; color: #6b7280; font-weight: normal;">(قسم التمارين)</span></h4>
+                    <select class="select-content-dropdown" id="dropdown-2nd-exercises" onchange="displaySelectedContent('2nd', 'exercises', this.value)">
+                        <option value="">-- Sélectionnez un exercice (اختر تمريناً للحل) --</option>
+                    </select>
+                    <div class="content-display-area" id="display-2nd-exercises"></div>
+                </div>
+                <div class="category-box">
+                    <h4 class="category-title">✍️ Expression Écrite <span style="font-size: 0.9rem; color: #6b7280; font-weight: normal;">(قسم الإنشاء والتعبير الكتابي)</span></h4>
+                    <select class="select-content-dropdown" id="dropdown-2nd-writing" onchange="displaySelectedContent('2nd', 'writing', this.value)">
+                        <option value="">-- Sélectionnez une production écrite (اختر موضوع تعبير) --</option>
+                    </select>
+                    <div class="content-display-area" id="display-2nd-writing"></div>
+                </div>
+            </div>
+
+            <!-- أقسام السنة الثالثة -->
+            <div id="section-3rd-wrapper">
+                <h3 class="year-section-title">📗 3ème Année Secondaire (Terminale) <span style="font-size: 1.1rem; color: #059669;">(السنة الثالثة ثانوي - النهائية)</span></h3>
+                <div class="category-box">
+                    <h4 class="category-title">📚 Cours <span style="font-size: 0.9rem; color: #6b7280; font-weight: normal;">(قسم الدروس)</span></h4>
+                    <select class="select-content-dropdown" id="dropdown-3rd-lessons" onchange="displaySelectedContent('3rd', 'lessons', this.value)">
+                        <option value="">-- Sélectionnez un cours (اختر درساً للقراءة) --</option>
+                    </select>
+                    <div class="content-display-area" id="display-3rd-lessons"></div>
+                </div>
+                <div class="category-box">
+                    <h4 class="category-title">📝 Exercices <span style="font-size: 0.9rem; color: #6b7280; font-weight: normal;">(قسم التمارين)</span></h4>
+                    <select class="select-content-dropdown" id="dropdown-3rd-exercises" onchange="displaySelectedContent('3rd', 'exercises', this.value)">
+                        <option value="">-- Sélectionnez un exercice (اختر تمريناً للحل) --</option>
+                    </select>
+                    <div class="content-display-area" id="display-3rd-exercises"></div>
+                </div>
+                <div class="category-box">
+                    <h4 class="category-title">✍️ Expression Écrite <span style="font-size: 0.9rem; color: #6b7280; font-weight: normal;">(قسم الإنشاء والتعبير الكتابي)</span></h4>
+                    <select class="select-content-dropdown" id="dropdown-3rd-writing" onchange="displaySelectedContent('3rd', 'writing', this.value)">
+                        <option value="">-- Sélectionnez une production écrite (اختر موضوع تعبير) --</option>
+                    </select>
+                    <div class="content-display-area" id="display-3rd-writing"></div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Tous droits réservés &copy; 2026 | Professeur Daman (جميع الحقوق محفوظة للأستاذ ضامن - اللغة الفرنسية)</p>
+        </footer>
+    </div>
+
+    <script>
+        let adminAccount = JSON.parse(localStorage.getItem("daman_admin")) || { 
+            email: "Prof_Daman_2026", 
+            pass: "#French_Secure_999!" 
+        };
+        
+        let allowedStudents = JSON.parse(localStorage.getItem("daman_students")) || [
+            { email: "1s_student", pass: "1234" },
+            { email: "2s_student", pass: "1234" },
+            { email: "3s_student", pass: "1234" }
+        ];
+
+        let savedContent = JSON.parse(localStorage.getItem("daman_content")) || [];
+        let currentLoggedInUser = null;
+
+        window.onload = function() {
+            document.getElementById("admin-new-user").value = adminAccount.email;
+            document.getElementById("admin-new-pass").value = adminAccount.pass;
+        };
+
+        function updateAdminCredentials() {
+            const newUser = document.getElementById("admin-new-user").value.trim();
+            const newPass = document.getElementById("admin-new-pass").value.trim();
+
+            if(newUser === "" || newPass === "") {
+                alert("Veuillez ne pas laisser les champs vides ! (الرجاء عدم ترك الحقول فارغة!)");
+                return;
+            }
+
+            adminAccount = { email: newUser, pass: newPass };
+            localStorage.setItem("daman_admin", JSON.stringify(adminAccount));
+            alert("Compte admin mis à jour avec succès ! (تم تحديث حساب الأدمن بنجاح!)");
+        }
+
+        function renderStudentsList() {
+            const container = document.getElementById("students-list-container");
+            container.innerHTML = "<strong>Élèves inscrits (التلاميذ المسجلون):</strong>";
+            if(allowedStudents.length === 0) {
+                container.innerHTML += "<p style='font-size:0.85rem; color:#6b7280; margin:4px 0;'>Aucun élève inscrit. (لا يوجد تلاميذ مسجلون حالياً)</p>";
+                return;
+            }
+            allowedStudents.forEach((s, index) => {
+                const row = document.createElement("div");
+                row.className = "student-item-row";
+                row.innerHTML = `
+                    <span>👤 ${s.email} (Mot de passe/كلمة السر: ${s.pass})</span>
+                    <button class="delete-btn" onclick="deleteStudent(${index})">Supprimer (حذف)</button>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function addNewStudent() {
+            const username = document.getElementById("new-student-user").value.trim();
+            const pass = document.getElementById("new-student-pass").value.trim();
+
+            if (username === "" || pass === "") {
+                alert("Veuillez entrer l'identifiant et le mot de passe ! (الرجاء إدخال اسم المستخدم وكلمة السر!)");
+                return;
+            }
+
+            if (!username.startsWith("1s_") && !username.startsWith("2s_") && !username.startsWith("3s_")) {
+                alert("Erreur: L'identifiant doit commencer par 1s_, 2s_ ou 3s_ ! (خطأ: يجب أن يبدأ اسم المستخدم بـ 1s_ أو 2s_ أو 3s_ حسب السنة!)");
+                return;
+            }
+
+            if(allowedStudents.some(s => s.email === username)) {
+                alert("Cet identifiant existe déjà ! (اسم المستخدم هذا موجود مسبقاً!)");
+                return;
+            }
+
+            allowedStudents.push({ email: username, pass: pass });
+            localStorage.setItem("daman_students", JSON.stringify(allowedStudents));
+            renderStudentsList();
+
+            document.getElementById("new-student-user").value = "";
+            document.getElementById("new-student-pass").value = "";
+            alert("Élève ajouté avec succès ! (تم إضافة التلميذ بنجاح!)");
+        }
+
+        function deleteStudent(index) {
+            if(confirm("Êtes-vous sûr de vouloir supprimer cet élève ? (هل أنت متأكد من حذف هذا التلميذ؟)")) {
+                allowedStudents.splice(index, 1);
+                localStorage.setItem("daman_students", JSON.stringify(allowedStudents));
+                renderStudentsList();
+            }
+        }
+
+        function login() {
+            const inputName = document.getElementById("user-email").value.trim();
+            const pass = document.getElementById("user-pass").value.trim();
+            const errorDiv = document.getElementById("login-error");
+
+            if (inputName === adminAccount.email && pass === adminAccount.pass) {
+                currentLoggedInUser = { type: "admin", email: inputName };
+                document.getElementById("login-screen").style.display = "none";
+                document.getElementById("app-content").style.display = "block";
+                document.getElementById("admin-panel").style.display = "block";
+                document.getElementById("user-role-badge").textContent = "Professeur / Admin (الأستاذ / المشرف)";
+                
+                document.getElementById("section-1st-wrapper").style.display = "block";
+                document.getElementById("section-2nd-wrapper").style.display = "block";
+                document.getElementById("section-3rd-wrapper").style.display = "block";
+
+                renderStudentsList();
+                renderAllDropdowns();
+            } else {
+                const studentFound = allowedStudents.find(s => s.email === inputName && s.pass === pass);
+                if (studentFound) {
+                    currentLoggedInUser = { type: "student", email: inputName };
+                    document.getElementById("login-screen").style.display = "none";
+                    document.getElementById("app-content").style.display = "block";
+                    document.getElementById("admin-panel").style.display = "none";
+                    
+                    const w1 = document.getElementById("section-1st-wrapper");
+                    const w2 = document.getElementById("section-2nd-wrapper");
+                    const w3 = document.getElementById("section-3rd-wrapper");
+
+                    if (inputName.startsWith("1s_")) {
+                        document.getElementById("user-role-badge").textContent = `Élève - 1ère Année / تلميذ السنة الأولى (${inputName})`;
+                        w1.style.display = "block"; w2.style.display = "none"; w3.style.display = "none";
+                    } else if (inputName.startsWith("2s_")) {
+                        document.getElementById("user-role-badge").textContent = `Élève - 2ème Année / تلميذ السنة الثانية (${inputName})`;
+                        w1.style.display = "none"; w2.style.display = "block"; w3.style.display = "none";
+                    } else if (inputName.startsWith("3s_")) {
+                        document.getElementById("user-role-badge").textContent = `Élève - 3ème Année / تلميذ السنة الثالثة (${inputName})`;
+                        w1.style.display = "none"; w2.style.display = "none"; w3.style.display = "block";
+                    }
+
+                    renderAllDropdowns();
+                } else {
+                    errorDiv.style.display = "block";
+                }
+            }
+        }
+
+        function logout() {
+            location.reload();
+        }
+
+        function publishContent() {
+            const level = document.getElementById("target-level").value;
+            const category = document.getElementById("target-category").value;
+            const title = document.getElementById("content-title").value.trim();
+            const textContent = document.getElementById("content-text").value.trim();
+            const fileInput = document.getElementById("content-file");
+            
+            if (title === "") {
+                alert("Veuillez entrer le titre du contenu ! (الرجاء إدخال عنوان المحتوى!)");
+                return;
+            }
+
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    saveItemToStorage(level, category, title, textContent, file.name, e.target.result, file.type);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                saveItemToStorage(level, category, title, textContent, null, null, null);
+            }
+        }
+
+        function saveItemToStorage(level, category, title, textContent, fileName, fileData, fileType) {
+            let newItem = {
+                id: Date.now(),
+                level: level,
+                category: category,
+                title: title,
+                text: textContent,
+                fileName: fileName,
+                fileData: fileData,
+                fileType: fileType
+            };
+
+            savedContent.unshift(newItem);
+            localStorage.setItem("daman_content", JSON.stringify(savedContent));
+
+            renderAllDropdowns();
+
+            document.getElementById("content-title").value = "";
+            document.getElementById("content-text").value = "";
+            document.getElementById("content-file").value = "";
+            
+            alert("Contenu publié avec succès ! (تم نشر المحتوى بنجاح!)");
+        }
+
+        function deleteContent(id) {
+            if(confirm("Voulez-vous vraiment supprimer ce contenu ? (هل أنت متأكد من رغبتك في حذف هذا المحتوى؟)")) {
+                savedContent = savedContent.filter(item => item.id !== id);
+                localStorage.setItem("daman_content", JSON.stringify(savedContent));
+                renderAllDropdowns();
+                document.querySelectorAll('.content-display-area').forEach(el => el.style.display = 'none');
+            }
+        }
+
+        function populateDropdown(level, category, dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            const categoryNameFr = category === 'lessons' ? 'cours' : (category === 'exercises' ? 'exercice' : 'production');
+            const categoryNameAr = category === 'lessons' ? 'درساً' : (category === 'exercises' ? 'تمريناً' : 'موضوع تعبير');
+            
+            dropdown.innerHTML = `<option value="">-- Sélectionnez un ${categoryNameFr} (اختر ${categoryNameAr}) --</option>`;
+
+            const filtered = savedContent.filter(item => item.level === level && item.category === category);
+            filtered.forEach(item => {
+                const opt = document.createElement("option");
+                opt.value = item.id;
+                opt.textContent = item.title;
+                dropdown.appendChild(opt);
+            });
+        }
+
+        function displaySelectedContent(level, category, itemId) {
+            const displayAreaId = `display-${level}-${category}`;
+            const displayArea = document.getElementById(displayAreaId);
+
+            if (!itemId) {
+                displayArea.style.display = "none";
+                displayArea.innerHTML = "";
+                return;
+            }
+
+            const item = savedContent.find(i => i.id == itemId);
+            if (!item) return;
+
+            let html = `<h4 style="margin-top:0; color:#4f46e5;">📌 ${item.title}</h4>`;
+
+            if (item.text) {
+                html += `<p style="white-space: pre-wrap; font-size: 0.95rem;">${item.text}</p>`;
+            }
+
+            if (item.fileName && item.fileData) {
+                if (item.fileType && item.fileType.startsWith("video")) {
+                    html += `<p style="font-size: 0.85rem;">🎬 Vidéo (فيديو): <strong>${item.fileName}</strong></p>
+                             <video controls>
+                                 <source src="${item.fileData}" type="${item.fileType}">
+                                 Votre navigateur ne supporte pas la vidéo.
+                             </video>
+                             <br>
+                             <a href="${item.fileData}" download="${item.fileName}" class="action-btn">📥 Télécharger la vidéo (تحميل الفيديو)</a>`;
+                } else {
+                    html += `<p style="font-size: 0.85rem;">📁 Fichier joint (ملف مرفق): <strong>${item.fileName}</strong></p>
+                             <a href="${item.fileData}" download="${item.fileName}" class="action-btn">📥 Télécharger le fichier (PDF/Image) (تحميل الملف)</a>`;
+                }
+            }
+
+            if (currentLoggedInUser && currentLoggedInUser.type === "admin") {
+                html += `<div style="margin-top: 15px; text-align: right; border-top: 1px dashed #cbd5e1; padding-top: 10px;"><button class="delete-btn" onclick="deleteContent(${item.id})">Supprimer définitivement (حذف نهائي)</button></div>`;
+            }
+
+            displayArea.innerHTML = html;
+            displayArea.style.display = "block";
+        }
+
+        function renderAllDropdowns() {
+            const levels = ['1st', '2nd', '3rd'];
+            const categories = ['lessons', 'exercises', 'writing'];
+
+            levels.forEach(lvl => {
+                categories.forEach(cat => {
+                    populateDropdown(lvl, cat, `dropdown-${lvl}-${cat}`);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
+
+    <script src="/script.js"></script>
+  </body>
+
+</html>
